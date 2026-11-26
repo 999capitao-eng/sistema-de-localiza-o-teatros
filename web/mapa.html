@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Radar de Teatros</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>html, body, #mapa { height: 100%; margin: 0; }</style>
+</head>
+<body>
+  <div id="mapa"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const mapa = L.map("mapa").setView([-14.2, -51.9], 4);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(mapa);
+    fetch("teatros.geojson").then(r => r.json()).then(dados => {
+      L.geoJSON(dados, {
+        onEachFeature: (f, camada) => {
+          const p = f.properties;
+          camada.bindPopup(
+            `<b>${esc(p.nome)}</b><br>${esc(p.cidade)}<br>` +
+            `Capacidade: ${esc(p.capacidade || "sem dado")} (${esc(p.confianca)})`
+          );
+        }
+      }).addTo(mapa);
+    });
+  </script>
+</body>
+</html>

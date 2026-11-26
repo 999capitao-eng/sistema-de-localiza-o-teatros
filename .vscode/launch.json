@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Radar: OSM",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "radar.cli",
+      "args": ["osm"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Radar: consolidar",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "radar.cli",
+      "args": ["consolidar"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Radar: tudo",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "radar.cli",
+      "args": ["tudo"],
+      "console": "integratedTerminal"
+    }
+  ]
+}
